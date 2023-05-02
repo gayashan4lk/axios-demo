@@ -1,6 +1,21 @@
 // GET REQUEST
 function getTodos() {
 	console.log('GET Request');
+	const res = {
+		status: 200,
+		headers: { 'content-type': 'application/json' },
+		data: [
+			{ id: 1, text: 'todo1' },
+			{ id: 2, text: 'todo2' },
+			{ id: 3, text: 'todo3' },
+		],
+		config: {
+			url: 'https://jsonplaceholder.typicode.com/todos',
+			method: 'get',
+			headers: { Accept: 'application/json, text/plain, */*' },
+		},
+	};
+	showOutput(res);
 }
 
 // POST REQUEST
