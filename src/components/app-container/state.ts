@@ -1,27 +1,11 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { getTodosWithAxios, getTodosWithFetch } from '@/utils';
-import type { Response } from '@/types';
-import { z } from 'zod';
 
 export function useComponentState() {
 	const todosQuery = useQuery({
 		queryKey: ['todoList'],
-		queryFn: getTodosWithAxios,
+		queryFn: getTodosWithFetch,
 	});
-
-	console.log(todosQuery);
-
-	const functions = {
-		getTodos,
-		addTodo,
-		updateTodo,
-		removeTodo,
-		getData,
-		customHeaders,
-		transformResponse,
-		errorHandling,
-		cancelToken,
-	};
 
 	// GET REQUEST
 	function getTodos() {
@@ -67,6 +51,18 @@ export function useComponentState() {
 	function cancelToken() {
 		console.log('Cancel Token');
 	}
+
+	const functions = {
+		getTodos,
+		addTodo,
+		updateTodo,
+		removeTodo,
+		getData,
+		customHeaders,
+		transformResponse,
+		errorHandling,
+		cancelToken,
+	};
 
 	return { todosQuery, functions };
 }

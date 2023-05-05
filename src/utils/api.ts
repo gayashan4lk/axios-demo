@@ -1,16 +1,24 @@
 import axios from 'axios';
-import { Response } from '@/types';
+import { z } from 'zod';
+import type { Response } from '@/types';
+
+const todosValidator = z.object({
+	status: z.number().optional(),
+	headers: z.any(),
+	data: z.any(),
+	config: z.any(),
+});
 
 export async function getTodosWithAxios() {
 	try {
-		const response = (await axios({
+		const response = await axios({
 			method: 'get',
 			url: 'https://jsonplaceholder.typicode.com/todos',
 			params: {
 				_limit: 5,
 			},
-		})) as Response;
-		return response;
+		});
+		return todosValidator.parse(response);
 	} catch (error) {
 		console.error(error);
 	}
@@ -18,11 +26,18 @@ export async function getTodosWithAxios() {
 
 export async function getTodosWithFetch() {
 	try {
-		const response = await fetch(
+		const res = await fetch(
 			'https://jsonplaceholder.typicode.com/todos?_limit=5'
 		);
-		const res = (await response.json()) as Response;
-		return res;
+		console.log(res);
+		const response = await res.json();
+		const formattedResponse: Response = {
+			status: res.status,
+			headers: undefined,
+			data: response,
+			config: undefined,
+		};
+		return todosValidator.parse(formattedResponse);
 	} catch (error) {
 		console.error(error);
 	}
