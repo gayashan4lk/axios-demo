@@ -13,9 +13,9 @@ export function Card({ title, body }: CardProps) {
 				</h5>
 			)}
 			{body && (
-				<p className='font-normal text-sm text-gray-700 dark:text-gray-400'>
+				<pre className='font-normal text-sm text-gray-700 dark:text-gray-400'>
 					{body}
-				</p>
+				</pre>
 			)}
 		</div>
 	);
