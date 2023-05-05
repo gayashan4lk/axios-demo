@@ -1,52 +1,28 @@
 'use client';
 import { useState } from 'react';
-import axios from 'axios';
-import { Button } from '@/components/Button';
-import { Card } from '@/components/Card';
-
-type Response = {
-	status: number;
-	headers: object;
-	data: object;
-	config: object;
-};
+import { Button, Card } from '@/components';
+import { getTodosWithAxios, getTodosWithFetch } from '@/utils';
+import type { Response } from '@/types';
 
 export default function Home() {
 	const [response, setResponse] = useState<Response>();
 	const [loading, setLoading] = useState<boolean>(false);
-	const [error, setError] = useState<string>('');
+	const [isError, setIsError] = useState<boolean>(false);
+
 	// GET REQUEST
 	function getTodos() {
 		console.log('GET | getTodos Initiated');
 		setLoading(true);
-		axios({
-			method: 'get',
-			url: 'https://jsonplaceholder.typicode.com/todos',
-			params: {
-				_limit: 5,
-			},
-		})
-			.then((res) => {
-				console.log(res);
-
-				const responseObject = {
-					status: res.status,
-					headers: res.headers,
-					data: res.data,
-					config: res.config,
-				};
-				setResponse(responseObject);
-			})
-			.catch((err) => {
-				console.log('Oh no. Error occured!');
-				console.error(err);
-				setError(err.message);
-			})
-			.finally(() => {
-				setLoading(false);
-				console.log('Get Todos Finished');
-			});
-		console.log('end of the function');
+		// Axios GET Request
+		(async () => {
+			try {
+				const myRes = await getTodosWithFetch();
+				setResponse(myRes);
+			} catch (error) {
+				setIsError(true);
+			}
+			setLoading(false);
+		})();
 	}
 
 	// POST REQUEST
@@ -91,7 +67,7 @@ export default function Home() {
 
 	if (loading) return <h1>Loading...</h1>;
 
-	if (error) return <h1>{error}</h1>;
+	if (isError) return <h1>Oh no, Error occured!</h1>;
 
 	return (
 		<main className='dark grid place-items-center'>
