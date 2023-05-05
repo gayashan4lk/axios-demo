@@ -1,56 +1,92 @@
+'use client';
+import { Button } from '@/components/Button';
+import { Card } from '@/components/Card';
+
 export default function Home() {
+	// GET REQUEST
+	function getTodos() {
+		console.log('GET | getTodos Initiated');
+	}
+
+	// POST REQUEST
+	function addTodo() {
+		console.log('POST | addTodo Initiated');
+	}
+
+	// PUT/PATCH REQUEST
+	function updateTodo() {
+		console.log('PUT/PATCH | updateTodo Initiated');
+	}
+
+	// DELETE REQUEST
+	function removeTodo() {
+		console.log('DELETE | removeTodo Initiated');
+	}
+
+	// SIMULTANEOUS DATA
+	function getData() {
+		console.log('Simultaneous Request');
+	}
+
+	// CUSTOM HEADERS
+	function customHeaders() {
+		console.log('Custom Headers');
+	}
+
+	// TRANSFORMING REQUESTS & RESPONSES
+	function transformResponse() {
+		console.log('Transform Response');
+	}
+
+	// ERROR HANDLING
+	function errorHandling() {
+		console.log('Error Handling');
+	}
+
+	// CANCEL TOKEN
+	function cancelToken() {
+		console.log('Cancel Token');
+	}
 	return (
-		<main className='dark'>
-			<h1>Axios Crash Course</h1>
-			<div className='my-5'>
-				<Button variant='btn-primary'>GET</Button>
-				<Button variant='btn-accent'>POST</Button>
-				<Button variant='btn-warning'>PUT/PATCH</Button>
-				<Button variant='btn-error'>DELETE</Button>
-				<Button>Sim Requests</Button>
-				<Button>Custom Headers</Button>
-				<Button>Transform</Button>
-				<Button>Error Handling</Button>
-				<Button>Cancel</Button>
+		<main className='dark grid place-items-center'>
+			<h1 className='my-2 font-bold text-xl'>Axios Crash Course</h1>
+			<div className='my-2'>
+				<Button variant='btn-primary' handleOnClick={getTodos}>
+					GET
+				</Button>
+				<Button variant='btn-accent' handleOnClick={addTodo}>
+					POST
+				</Button>
+				<Button variant='btn-warning' handleOnClick={updateTodo}>
+					PUT/PATCH
+				</Button>
+				<Button variant='btn-error' handleOnClick={removeTodo}>
+					DELETE
+				</Button>
+				<Button handleOnClick={getData}>Sim Requests</Button>
+				<Button handleOnClick={customHeaders}>Custom Headers</Button>
+				<Button handleOnClick={transformResponse}>Transform</Button>
+				<Button handleOnClick={errorHandling}>Error Handling</Button>
+				<Button handleOnClick={cancelToken}>Cancel</Button>
 			</div>
-			<div className='my-5'>
-				<Card title='Status: 200' />
-				<Card title='Headers' body='Here is the headers' />
-				<Card title='Data' body='Here is the data' />
-				<Card title='Config' body='Here is the config' />
+			<div className='m-5 grid gap-4 grid-cols-3'>
+				<div>
+					<Card title='My Status: 200' />
+					<Card
+						title='Headers'
+						body='Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, molestiae. Culpa quae sit distinctio eius, sunt illum? Dolor perspiciatis molestias eius minima dolore assumenda esse quibusdam consectetur! Voluptatum, quae autem.'
+					/>
+				</div>
+				<Card
+					title='Data'
+					body='Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, molestiae. Culpa quae sit distinctio eius, sunt illum? Dolor perspiciatis molestias eius minima dolore assumenda esse quibusdam consectetur! Voluptatum, quae autem.'
+				/>
+
+				<Card
+					title='Config'
+					body='Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, molestiae. Culpa quae sit distinctio eius, sunt illum? Dolor perspiciatis molestias eius minima dolore assumenda esse quibusdam consectetur! Voluptatum, quae autem.'
+				/>
 			</div>
 		</main>
-	);
-}
-
-type ButtonProps = {
-	variant?: string;
-	children?: React.ReactNode;
-};
-
-function Button({ variant = '', children }: ButtonProps) {
-	return <button className={`mx-2 btn btn-sm ${variant}`}>{children}</button>;
-}
-
-type CardProps = {
-	title?: string;
-	body?: string;
-};
-
-function Card({ title, body }: CardProps) {
-	if (!title && !body) return null;
-	return (
-		<div className='mb-3 block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'>
-			{title && (
-				<h5 className='mb-2 text-md font-bold tracking-tight text-gray-900 dark:text-white'>
-					{title}
-				</h5>
-			)}
-			{body && (
-				<p className='font-normal text-sm text-gray-700 dark:text-gray-400'>
-					{body}
-				</p>
-			)}
-		</div>
 	);
 }
