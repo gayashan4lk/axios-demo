@@ -22,7 +22,6 @@ export async function getTodosWithFetch() {
 			'https://jsonplaceholder.typicode.com/todos?_limit=5'
 		);
 		const res = (await response.json()) as Response;
-		console.log(res);
 		return res;
 	} catch (error) {
 		console.error(error);

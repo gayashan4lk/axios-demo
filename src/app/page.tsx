@@ -1,28 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
+import {
+	QueryClient,
+	QueryClientProvider,
+	useQuery,
+	useMutation,
+} from '@tanstack/react-query';
 import { Button, Card } from '@/components';
 import { getTodosWithAxios, getTodosWithFetch } from '@/utils';
 import type { Response } from '@/types';
 
 export default function Home() {
-	const [response, setResponse] = useState<Response>();
-	const [loading, setLoading] = useState<boolean>(false);
-	const [isError, setIsError] = useState<boolean>(false);
+	const queryClient = new QueryClient();
+	return (
+		<QueryClientProvider client={queryClient}>
+			<main className='dark grid place-items-center'>
+				<AppContainer />
+			</main>
+		</QueryClientProvider>
+	);
+}
+
+function AppContainer() {
+	const todoList = useQuery({
+		queryKey: ['todoList'],
+		queryFn: getTodosWithAxios,
+	});
+
+	console.log(todoList);
 
 	// GET REQUEST
 	function getTodos() {
 		console.log('GET | getTodos Initiated');
-		setLoading(true);
+
 		// Axios GET Request
-		(async () => {
-			try {
-				const myRes = await getTodosWithFetch();
-				setResponse(myRes);
-			} catch (error) {
-				setIsError(true);
-			}
-			setLoading(false);
-		})();
+		// (async () => {
+		// 	try {
+		// 		const myRes = await getTodosWithFetch();
+		// 	} catch (error) {}
+		// })();
 	}
 
 	// POST REQUEST
@@ -65,12 +81,12 @@ export default function Home() {
 		console.log('Cancel Token');
 	}
 
-	if (loading) return <h1>Loading...</h1>;
-
-	if (isError) return <h1>Oh no, Error occured!</h1>;
+	if (todoList.isLoading) return <div>Loading...</div>;
+	if (todoList.isError)
+		return <pre>{JSON.stringify(todoList.error, null, 2)}</pre>;
 
 	return (
-		<main className='dark grid place-items-center'>
+		<>
 			<h1 className='my-2 font-bold text-xl'>Axios Crash Course</h1>
 			<div className='my-2'>
 				<Button variant='btn-primary' handleOnClick={getTodos}>
@@ -91,23 +107,26 @@ export default function Home() {
 				<Button handleOnClick={errorHandling}>Error Handling</Button>
 				<Button handleOnClick={cancelToken}>Cancel</Button>
 			</div>
-			{response && (
+			{todoList.data && (
 				<div className='m-5 grid gap-4 grid-cols-3'>
 					<div>
-						<Card title={`Status: ${response.status}`} />
+						<Card title={`Status: ${todoList.data.status}`} />
 						<Card
 							title='Headers'
-							body={JSON.stringify(response.headers, null, 2)}
+							body={JSON.stringify(todoList.data.headers, null, 2)}
 						/>
 					</div>
-					<Card title='Data' body={JSON.stringify(response.data, null, 2)} />
+					<Card
+						title='Data'
+						body={JSON.stringify(todoList.data.data, null, 2)}
+					/>
 
 					<Card
 						title='Config'
-						body={JSON.stringify(response.config, null, 2)}
+						body={JSON.stringify(todoList.data.config, null, 2)}
 					/>
 				</div>
 			)}
-		</main>
+		</>
 	);
 }
