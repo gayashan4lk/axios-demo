@@ -1,12 +1,12 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
-import { getTodosWithAxios, getTodosWithFetch } from '@/utils';
+import { axiosGetRequest, fetchGetRequest } from '@/utils';
 import { Card } from '@/components';
 
 export function GetRequest() {
 	const { isLoading, isError, error, data, refetch } = useQuery({
 		queryKey: ['todoList'],
-		queryFn: getTodosWithAxios,
+		queryFn: axiosGetRequest,
 	});
 
 	if (isLoading) return <div>Loading ...</div>;

@@ -1,8 +1,12 @@
 'use client';
 import { useState } from 'react';
-import { Button } from '@/components';
-import { GetRequest } from '@/components';
-import { PostRequest } from '@/components';
+import {
+	Button,
+	GetRequest,
+	PostRequest,
+	PutRequest,
+	PatchRequest,
+} from '@/components';
 
 export enum Action {
 	GET = 'GET',
@@ -40,7 +44,13 @@ export function AppContainer() {
 					variant='btn-warning'
 					handleOnClick={() => setAction(Action.PUT)}
 				>
-					PUT/PATCH
+					PUT
+				</Button>
+				<Button
+					variant='btn-warning'
+					handleOnClick={() => setAction(Action.PATCH)}
+				>
+					PATCH
 				</Button>
 				<Button
 					variant='btn-error'
@@ -56,6 +66,8 @@ export function AppContainer() {
 			</div>
 			{action === Action.GET && <GetRequest />}
 			{action === Action.POST && <PostRequest />}
+			{action === Action.PUT && <PutRequest />}
+			{action === Action.PATCH && <PatchRequest />}
 		</main>
 	);
 }

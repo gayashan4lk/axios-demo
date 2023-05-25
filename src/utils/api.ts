@@ -9,22 +9,25 @@ const todosValidator = z.object({
 	config: z.any(),
 });
 
-export async function getTodosWithAxios() {
+export async function axiosGetRequest() {
 	try {
-		const response = await axios({
-			method: 'get',
-			url: 'https://jsonplaceholder.typicode.com/todos',
-			params: {
-				_limit: null,
-			},
-		});
+		const response = await axios.get(
+			'https://jsonplaceholder.typicode.com/todos'
+		);
+		// const response = await axios({
+		// 	method: 'get',
+		// 	url: 'https://jsonplaceholder.typicode.com/todos',
+		// 	params: {
+		// 		_limit: null,
+		// 	},
+		// });
 		return todosValidator.parse(response);
 	} catch (error) {
 		console.error(error);
 	}
 }
 
-export async function getTodosWithFetch() {
+export async function fetchGetRequest() {
 	try {
 		const res = await fetch('https://jsonplaceholder.typicode.com/todos');
 		console.log(res);
@@ -41,16 +44,54 @@ export async function getTodosWithFetch() {
 	}
 }
 
-export async function addTodoWithAxios() {
+export async function axiosPostRequest() {
 	try {
-		const response = await axios({
-			method: 'post',
-			url: 'https://jsonplaceholder.typicode.com/todos',
-			data: {
-				title: 'New Todo',
-				completed: false,
-			},
-		});
+		const response = await axios.post(
+			'https://jsonplaceholder.typicode.com/todos',
+			{ title: 'New Todo', completed: false }
+		);
+		// const response = await axios({
+		// 	method: 'post',
+		// 	url: 'https://jsonplaceholder.typicode.com/todos',
+		// 	data: {
+		// 		title: 'New Todo',
+		// 		completed: false,
+		// 	},
+		// });
+		console.log(response);
+		return todosValidator.parse(response);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function axiosPutRequest() {
+	try {
+		const response = await axios.put(
+			'https://jsonplaceholder.typicode.com/todos/1',
+			{ title: 'Updated Todo', completed: true }
+		);
+		// const response = await axios({
+		// 	method: 'put',
+		// 	url: 'https://jsonplaceholder.typicode.com/todos/1',
+		// 	data: {
+		// 		title: 'Updated Todo',
+		// 		completed: true,
+		// 	},
+		// });
+		console.log(response);
+		return todosValidator.parse(response);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function axiosPatchRequest() {
+	try {
+		const response = await axios.patch(
+			'https://jsonplaceholder.typicode.com/todos/1',
+			{ title: 'Updated Todo', completed: true }
+		);
 		console.log(response);
 		return todosValidator.parse(response);
 	} catch (error) {

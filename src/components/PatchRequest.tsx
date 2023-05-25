@@ -1,11 +1,10 @@
-'use client';
 import { useMutation } from '@tanstack/react-query';
-import { addTodoWithAxios } from '@/utils';
+import { axiosPatchRequest } from '@/utils';
 import { Card } from '@/components';
 
-export function PostRequest() {
+export function PatchRequest() {
 	const { isLoading, isError, error, data, mutate } =
-		useMutation(addTodoWithAxios);
+		useMutation(axiosPatchRequest);
 
 	if (isLoading) return <div>Loading ...</div>;
 	if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
