@@ -9,3 +9,6 @@ export * from './PatchRequest';
 export * from './DeleteRequest';
 export * from './SimRequest';
 export * from './CustomHeaders';
+export * from './TransformRequest';
+export * from './ErrorHandling';
+export * from './CancelRequest';

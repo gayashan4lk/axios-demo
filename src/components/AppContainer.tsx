@@ -9,6 +9,9 @@ import {
 	DeleteRequest,
 	SimRequest,
 	CustomHeaders,
+	TransformRequest,
+	ErrorHandling,
+	CancelRequest,
 } from '@/components';
 
 export enum Action {
@@ -61,23 +64,19 @@ export function AppContainer() {
 				>
 					DELETE
 				</Button>
-				<Button
-					handleOnClick={() => {
-						setAction(Action.SIM_REQEUST);
-					}}
-				>
+				<Button handleOnClick={() => setAction(Action.SIM_REQEUST)}>
 					Sim Requests
 				</Button>
-				<Button
-					handleOnClick={() => {
-						setAction(Action.CUSTOM_HEADERS);
-					}}
-				>
+				<Button handleOnClick={() => setAction(Action.CUSTOM_HEADERS)}>
 					Custom Headers
 				</Button>
-				<Button handleOnClick={() => {}}>Transform</Button>
-				<Button handleOnClick={() => {}}>Error Handling</Button>
-				<Button handleOnClick={() => {}}>Cancel</Button>
+				<Button handleOnClick={() => setAction(Action.TRANSFORM_RESPONSE)}>
+					Transform
+				</Button>
+				<Button handleOnClick={() => setAction(Action.ERROR_HANDLING)}>
+					Error Handling
+				</Button>
+				<Button handleOnClick={() => setAction(Action.CANCEL)}>Cancel</Button>
 			</div>
 			{action === Action.GET && <GetRequest />}
 			{action === Action.POST && <PostRequest />}
@@ -86,6 +85,9 @@ export function AppContainer() {
 			{action === Action.DELETE && <DeleteRequest />}
 			{action === Action.SIM_REQEUST && <SimRequest />}
 			{action === Action.CUSTOM_HEADERS && <CustomHeaders />}
+			{action === Action.TRANSFORM_RESPONSE && <TransformRequest />}
+			{action === Action.ERROR_HANDLING && <ErrorHandling />}
+			{action === Action.CANCEL && <CancelRequest />}
 		</main>
 	);
 }
