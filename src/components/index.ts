@@ -5,3 +5,5 @@ export * from './GetRequest';
 export * from './PostRequest';
 export * from './PutRequest';
 export * from './PatchRequest';
+export * from './DeleteRequest';
+export * from './SimRequest';

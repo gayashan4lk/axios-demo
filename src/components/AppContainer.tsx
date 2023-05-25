@@ -6,6 +6,8 @@ import {
 	PostRequest,
 	PutRequest,
 	PatchRequest,
+	DeleteRequest,
+	SimRequest,
 } from '@/components';
 
 export enum Action {
@@ -58,7 +60,13 @@ export function AppContainer() {
 				>
 					DELETE
 				</Button>
-				<Button handleOnClick={() => {}}>Sim Requests</Button>
+				<Button
+					handleOnClick={() => {
+						setAction(Action.SIM_REQEUST);
+					}}
+				>
+					Sim Requests
+				</Button>
 				<Button handleOnClick={() => {}}>Custom Headers</Button>
 				<Button handleOnClick={() => {}}>Transform</Button>
 				<Button handleOnClick={() => {}}>Error Handling</Button>
@@ -68,6 +76,8 @@ export function AppContainer() {
 			{action === Action.POST && <PostRequest />}
 			{action === Action.PUT && <PutRequest />}
 			{action === Action.PATCH && <PatchRequest />}
+			{action === Action.DELETE && <DeleteRequest />}
+			{action === Action.SIM_REQEUST && <SimRequest />}
 		</main>
 	);
 }

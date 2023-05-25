@@ -98,3 +98,28 @@ export async function axiosPatchRequest() {
 		console.error(error);
 	}
 }
+
+export async function axiosDeleteRequest() {
+	try {
+		const response = await axios.delete(
+			'https://jsonplaceholder.typicode.com/todos/1'
+		);
+		console.log(response);
+		return todosValidator.parse(response);
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+export async function axiosSimultanousRequests() {
+	try {
+		const response = await axios.all([
+			axios.get('https://jsonplaceholder.typicode.com/todos'),
+			axios.get('https://jsonplaceholder.typicode.com/posts'),
+		]);
+		console.log(response);
+		return todosValidator.parse(response[1]);
+	} catch (error) {
+		console.error(error);
+	}
+}
