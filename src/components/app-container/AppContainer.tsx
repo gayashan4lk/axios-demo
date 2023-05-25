@@ -1,56 +1,61 @@
 'use client';
-import { Button, Card } from '@/components';
-import { useComponentState } from './state';
+import { useState } from 'react';
+import { Button } from '@/components';
+import { GetRequest } from '@/components';
+import { PostRequest } from '@/components';
+
+export enum Action {
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	PATCH = 'PATCH',
+	DELETE = 'DELETE',
+	SIM_REQEUST = 'SIM_REQEUST',
+	CUSTOM_HEADERS = 'CUSTOM_HEADERS',
+	TRANSFORM_RESPONSE = 'TRANSFORM_RESPONSE',
+	ERROR_HANDLING = 'ERROR_HANDLING',
+	CANCEL = 'CANCEL',
+}
 
 export function AppContainer() {
-	const { todosQuery, functions } = useComponentState();
-
-	if (todosQuery.isLoading) return <div>Loading...</div>;
-
-	if (todosQuery.isError)
-		return <pre>{JSON.stringify(todosQuery.error, null, 2)}</pre>;
+	const [action, setAction] = useState<Action>(Action.GET);
 
 	return (
 		<main className='dark grid place-items-center'>
 			<h1 className='my-2 font-bold text-xl'>Axios Crash Course</h1>
 			<div className='my-2'>
-				<Button variant='btn-primary' handleOnClick={functions.getTodos}>
+				<Button
+					variant='btn-primary'
+					handleOnClick={() => setAction(Action.GET)}
+				>
 					GET
 				</Button>
-				<Button variant='btn-accent' handleOnClick={functions.addTodo}>
+				<Button
+					variant='btn-accent'
+					handleOnClick={() => setAction(Action.POST)}
+				>
 					POST
 				</Button>
-				<Button variant='btn-warning' handleOnClick={functions.updateTodo}>
+				<Button
+					variant='btn-warning'
+					handleOnClick={() => setAction(Action.PUT)}
+				>
 					PUT/PATCH
 				</Button>
-				<Button variant='btn-error' handleOnClick={functions.removeTodo}>
+				<Button
+					variant='btn-error'
+					handleOnClick={() => setAction(Action.DELETE)}
+				>
 					DELETE
 				</Button>
-				<Button handleOnClick={functions.getData}>Sim Requests</Button>
-				<Button handleOnClick={functions.customHeaders}>Custom Headers</Button>
-				<Button handleOnClick={functions.transformResponse}>Transform</Button>
-				<Button handleOnClick={functions.errorHandling}>Error Handling</Button>
-				<Button handleOnClick={functions.cancelToken}>Cancel</Button>
+				<Button handleOnClick={() => {}}>Sim Requests</Button>
+				<Button handleOnClick={() => {}}>Custom Headers</Button>
+				<Button handleOnClick={() => {}}>Transform</Button>
+				<Button handleOnClick={() => {}}>Error Handling</Button>
+				<Button handleOnClick={() => {}}>Cancel</Button>
 			</div>
-			{todosQuery.data && (
-				<div className='m-5 grid gap-4 grid-cols-2'>
-					<div>
-						<Card title='Status' body={`${todosQuery.data.status}`} />
-						<Card
-							title='Headers'
-							body={JSON.stringify(todosQuery.data.headers, null, 2)}
-						/>
-						<Card
-							title='Config'
-							body={JSON.stringify(todosQuery.data.config, null, 2)}
-						/>
-					</div>
-					<Card
-						title='Data'
-						body={JSON.stringify(todosQuery.data.data, null, 2)}
-					/>
-				</div>
-			)}
+			{action === Action.GET && <GetRequest />}
+			{action === Action.POST && <PostRequest />}
 		</main>
 	);
 }

@@ -40,3 +40,20 @@ export async function getTodosWithFetch() {
 		console.error(error);
 	}
 }
+
+export async function addTodoWithAxios() {
+	try {
+		const response = await axios({
+			method: 'post',
+			url: 'https://jsonplaceholder.typicode.com/todos',
+			data: {
+				title: 'New Todo',
+				completed: false,
+			},
+		});
+		console.log(response);
+		return todosValidator.parse(response);
+	} catch (error) {
+		console.error(error);
+	}
+}
