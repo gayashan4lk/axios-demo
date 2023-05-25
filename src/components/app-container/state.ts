@@ -4,7 +4,7 @@ import { getTodosWithAxios, getTodosWithFetch } from '@/utils';
 export function useComponentState() {
 	const todosQuery = useQuery({
 		queryKey: ['todoList'],
-		queryFn: getTodosWithFetch,
+		queryFn: getTodosWithAxios,
 	});
 
 	// GET REQUEST

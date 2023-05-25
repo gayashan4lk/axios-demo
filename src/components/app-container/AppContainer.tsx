@@ -33,22 +33,21 @@ export function AppContainer() {
 				<Button handleOnClick={functions.cancelToken}>Cancel</Button>
 			</div>
 			{todosQuery.data && (
-				<div className='m-5 grid gap-4 grid-cols-3'>
+				<div className='m-5 grid gap-4 grid-cols-2'>
 					<div>
-						<Card title={`Status: ${todosQuery.data.status}`} />
+						<Card title='Status' body={`${todosQuery.data.status}`} />
 						<Card
 							title='Headers'
 							body={JSON.stringify(todosQuery.data.headers, null, 2)}
+						/>
+						<Card
+							title='Config'
+							body={JSON.stringify(todosQuery.data.config, null, 2)}
 						/>
 					</div>
 					<Card
 						title='Data'
 						body={JSON.stringify(todosQuery.data.data, null, 2)}
-					/>
-
-					<Card
-						title='Config'
-						body={JSON.stringify(todosQuery.data.config, null, 2)}
 					/>
 				</div>
 			)}

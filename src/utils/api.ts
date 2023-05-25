@@ -15,7 +15,7 @@ export async function getTodosWithAxios() {
 			method: 'get',
 			url: 'https://jsonplaceholder.typicode.com/todos',
 			params: {
-				_limit: 5,
+				_limit: null,
 			},
 		});
 		return todosValidator.parse(response);
@@ -26,9 +26,7 @@ export async function getTodosWithAxios() {
 
 export async function getTodosWithFetch() {
 	try {
-		const res = await fetch(
-			'https://jsonplaceholder.typicode.com/todos?_limit=5'
-		);
+		const res = await fetch('https://jsonplaceholder.typicode.com/todos');
 		console.log(res);
 		const response = await res.json();
 		const formattedResponse: Response = {
