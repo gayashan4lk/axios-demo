@@ -1,5 +1,6 @@
 export * from './shared/Card';
 export * from './shared/Button';
+export * from './shared/Content';
 export * from './AppContainer';
 export * from './GetRequest';
 export * from './PostRequest';
@@ -7,3 +8,4 @@ export * from './PutRequest';
 export * from './PatchRequest';
 export * from './DeleteRequest';
 export * from './SimRequest';
+export * from './CustomHeaders';

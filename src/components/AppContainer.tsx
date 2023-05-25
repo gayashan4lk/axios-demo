@@ -8,6 +8,7 @@ import {
 	PatchRequest,
 	DeleteRequest,
 	SimRequest,
+	CustomHeaders,
 } from '@/components';
 
 export enum Action {
@@ -67,7 +68,13 @@ export function AppContainer() {
 				>
 					Sim Requests
 				</Button>
-				<Button handleOnClick={() => {}}>Custom Headers</Button>
+				<Button
+					handleOnClick={() => {
+						setAction(Action.CUSTOM_HEADERS);
+					}}
+				>
+					Custom Headers
+				</Button>
 				<Button handleOnClick={() => {}}>Transform</Button>
 				<Button handleOnClick={() => {}}>Error Handling</Button>
 				<Button handleOnClick={() => {}}>Cancel</Button>
@@ -78,6 +85,7 @@ export function AppContainer() {
 			{action === Action.PATCH && <PatchRequest />}
 			{action === Action.DELETE && <DeleteRequest />}
 			{action === Action.SIM_REQEUST && <SimRequest />}
+			{action === Action.CUSTOM_HEADERS && <CustomHeaders />}
 		</main>
 	);
 }

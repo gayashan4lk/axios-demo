@@ -123,3 +123,22 @@ export async function axiosSimultanousRequests() {
 		console.error(error);
 	}
 }
+
+export async function axiosPostRequestWithCustomHeaders() {
+	try {
+		const response = await axios.post(
+			'https://jsonplaceholder.typicode.com/todos',
+			{ title: 'New Todo', completed: false },
+			{
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': 'sometoken',
+				},
+			}
+		);
+		console.log(response);
+		return todosValidator.parse(response);
+	} catch (error) {
+		console.error(error);
+	}
+}
